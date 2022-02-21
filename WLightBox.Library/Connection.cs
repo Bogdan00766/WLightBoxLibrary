@@ -9,34 +9,62 @@ using System.Threading.Tasks;
 
 namespace WLightBox.Library
 {
+   
+
     public class Connection
     {
-        public async Task<String> FindDeviceIp()
+        List<String> deviceIps = new List<String>();
+        public Device[] devices { get; set; }
+
+        public Connection()
+        {
+            FindDevicesIps();
+            devices = new Device[deviceIps.Count];
+            for(int i = 0; i < devices.Length; i++)
+            {
+                devices[i] = new Device(deviceIps[i]);
+            }
+        }
+
+        
+
+        public void FindDevicesIps()
         {
             HttpClient client = new HttpClient();
             List<String>? subnets = GetLocalSubnetsList();
-            if (subnets == null) return null;
+            if (subnets == null) return;
+            int counter = 0;
             foreach (var subnet in subnets)
             {
-                for (int i = 1; i < 256; i++)
+                for (int i = 1; i < 255; i++)
                 {
-                    String requestString = $"{subnet}.i/info";
-                    try
-                    {
-                        HttpResponseMessage response = await client.GetAsync(requestString);
-                        Console.WriteLine(response);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
-
+                    Console.WriteLine(counter++);
+                    String requestString = $"http://{subnet}.{i}/info";
+                    sendRequestAsync(client, requestString);
                 }
 
             }
-            return null;
+            return;
+            
         }
-        public List<String>? GetLocalSubnetsList()
+        
+        private async void sendRequestAsync(HttpClient client, String requestString)
+        {
+            try
+            {
+                await client.GetStringAsync(requestString);
+                requestString = requestString.Split("//")[1];
+                requestString = requestString.Split('/')[0];
+                deviceIps.Add(requestString);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        
+        private List<String>? GetLocalSubnetsList()
         {
             List<String>? result = new List<string>();
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())

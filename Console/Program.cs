@@ -4,4 +4,4 @@ using WLightBox.Library;
 
 Console.WriteLine("Hello, World!");
 Connection conn = new Connection();
-conn.FindDeviceIp();
+conn.FindDevicesIps();
