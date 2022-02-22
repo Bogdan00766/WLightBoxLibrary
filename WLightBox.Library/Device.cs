@@ -66,7 +66,6 @@ namespace WLightBox.Library
                     String jsonResponse = await client.GetStringAsync(requestString);
                     //response = response.Split(@"""currentColor"": """)[1].Split('"')[0];
                     var obj = JObject.Parse(jsonResponse);
-                    Console.WriteLine(jsonResponse.ToString());
                     string effectID = obj["rgbw"]["effectID"].ToString();
                     string response = obj["rgbw"]["effectNames"][effectID].ToString();
                     return response;
@@ -83,6 +82,13 @@ namespace WLightBox.Library
         {
             String requestUrl = $"http://{Ip}/api/rgbw/set";
             String requestJson = JsonConvert.SerializeObject(new { rgbw = new { desiredColor = color } });
+            var content = new StringContent(requestJson.ToString(), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync(requestUrl, content);
+        }
+        public async void SetEffectAsync(int effectId)
+        {
+            String requestUrl = $"http://{Ip}/api/rgbw/set";
+            String requestJson = JsonConvert.SerializeObject(new { rgbw = new { effectID = effectId.ToString() } });
             var content = new StringContent(requestJson.ToString(), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(requestUrl, content);
         }

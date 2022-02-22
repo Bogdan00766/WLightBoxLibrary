@@ -33,12 +33,10 @@ namespace WLightBox.Library
             HttpClient client = new HttpClient();
             List<String>? subnets = GetLocalSubnetsList();
             if (subnets == null) return;
-            int counter = 0;
             foreach (var subnet in subnets)
             {
                 for (int i = 1; i < 255; i++)
                 {
-                    Console.WriteLine(counter++);
                     String requestString = $"http://{subnet}.{i}/info";
                     sendRequestAsync(client, requestString);
                 }
