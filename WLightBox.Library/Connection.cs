@@ -56,7 +56,6 @@ namespace WLightBox.Library
                 requestString = requestString.Split("//")[1];
                 requestString = requestString.Split('/')[0];
                 deviceIps.Add(requestString);
-
             }
             catch (Exception ex)
             {

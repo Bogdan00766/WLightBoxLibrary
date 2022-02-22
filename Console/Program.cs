@@ -4,4 +4,9 @@ using WLightBox.Library;
 
 Console.WriteLine("Hello, World!");
 Connection conn = new Connection();
-conn.FindDevicesIps();
+foreach(Device dev in conn.devices)
+{
+    Console.WriteLine(dev.Ip);
+    Console.WriteLine(await dev.GetCurrentColorAsync());
+}
+while (true) ;
