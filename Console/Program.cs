@@ -8,10 +8,10 @@ foreach(Device dev in conn.devices)
 {
     Console.WriteLine(dev.Ip);
     Console.WriteLine(await dev.GetCurrentColorAsync());
-    dev.SetColorAsync("00ff00ff00");
+    await dev.SetColorAsync("00ff00ff00");
     Console.WriteLine(await dev.GetCurrentEffectAsync());
-    dev.SetEffectAsync(1);
-    Task.Delay(1000).Wait();
+    await dev.SetEffectAsync(1);
+    
     Console.WriteLine(await dev.GetCurrentEffectAsync());
 
 }

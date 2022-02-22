@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console", "Console\Console.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WLightBoxTestServer.Console", "..\WLightBoxTestServer\WLightBoxTestServer.Console\WLightBoxTestServer.Console.csproj", "{2BAC675E-A498-4B09-802A-02AB266A456D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLightBox.WPF", "WLightBox.WPF\WLightBox.WPF.csproj", "{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2BAC675E-A498-4B09-802A-02AB266A456D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BAC675E-A498-4B09-802A-02AB266A456D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BAC675E-A498-4B09-802A-02AB266A456D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

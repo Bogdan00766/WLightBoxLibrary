@@ -78,14 +78,14 @@ namespace WLightBox.Library
             return String.Empty;
         }
 
-        public async void SetColorAsync(string color)
+        public async Task SetColorAsync(string color)
         {
             String requestUrl = $"http://{Ip}/api/rgbw/set";
             String requestJson = JsonConvert.SerializeObject(new { rgbw = new { desiredColor = color } });
             var content = new StringContent(requestJson.ToString(), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(requestUrl, content);
         }
-        public async void SetEffectAsync(int effectId)
+        public async Task SetEffectAsync(int effectId)
         {
             String requestUrl = $"http://{Ip}/api/rgbw/set";
             String requestJson = JsonConvert.SerializeObject(new { rgbw = new { effectID = effectId.ToString() } });
