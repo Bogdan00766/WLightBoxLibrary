@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using WLightBox.Library;
 
 namespace WLightBox.WPF
 {
@@ -20,9 +8,31 @@ namespace WLightBox.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        int counter = 0;
         public MainWindow()
         {
+            
             InitializeComponent();
+            //Connection conn = new Connection();
+            //foreach (Device dev in conn.devices)
+            //{
+            //    currentColorText.Text = dev.Ip;
+            //}
+                //Task.Delay(1000).Wait();
+                // currentColorText.Text = connection.devices[0].GetCurrentColorAsync().Result;
+                //currentEffectText.Text = connection.devices[0].GetCurrentEffectAsync().Result;
+            }
+
+        private void testButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            currentEffectText.Text = "XDDD";
+            foreach (Device dev in Connection.devices)
+            {
+                currentEffectText.Text = dev.Ip;
+            }
+
+            currentColorText.Text = counter++.ToString();
         }
     }
 }

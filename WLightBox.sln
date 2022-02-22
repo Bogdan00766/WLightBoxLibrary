@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WLightBox.Library", "WLightBox.Library\WLightBox.Library.csproj", "{275F09C1-8201-464E-9D9F-10AFA49B54F7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console", "Console\Console.csproj", "{81356CBA-B2BC-4C30-8ECD-A4AD6ADF5163}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WLightBoxTestServer.Console", "..\WLightBoxTestServer\WLightBoxTestServer.Console\WLightBoxTestServer.Console.csproj", "{2BAC675E-A498-4B09-802A-02AB266A456D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLightBox.WPF", "WLightBox.WPF\WLightBox.WPF.csproj", "{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WLightBox.WPF", "WLightBox.WPF\WLightBox.WPF.csproj", "{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLightBox.Library", "..\WLightBoxx\WLightBox.Library\WLightBox.Library.csproj", "{E13FAF9F-6417-4DE1-B399-8C31BF3FA227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{275F09C1-8201-464E-9D9F-10AFA49B54F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{275F09C1-8201-464E-9D9F-10AFA49B54F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{275F09C1-8201-464E-9D9F-10AFA49B54F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{275F09C1-8201-464E-9D9F-10AFA49B54F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81356CBA-B2BC-4C30-8ECD-A4AD6ADF5163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81356CBA-B2BC-4C30-8ECD-A4AD6ADF5163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81356CBA-B2BC-4C30-8ECD-A4AD6ADF5163}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21A3F1B0-76FF-4EBF-B03B-F29A90CE422A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E13FAF9F-6417-4DE1-B399-8C31BF3FA227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E13FAF9F-6417-4DE1-B399-8C31BF3FA227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E13FAF9F-6417-4DE1-B399-8C31BF3FA227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E13FAF9F-6417-4DE1-B399-8C31BF3FA227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

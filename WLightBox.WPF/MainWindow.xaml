@@ -14,15 +14,16 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Current color: "/>
+            <Button Content="TEST" x:Name="testButton" Click="testButton_Click"/>
+            <!--<TextBlock Grid.Column="0" Text="Current color: "/>-->
             <TextBlock Grid.Column="1" x:Name="currentColorText"/>
-            <TextBlock Grid.Column="0" Text="Current effect: "/>
-            <TextBlock Grid.Column="1" x:Name="currentEffectText"/>
+            <TextBlock Grid.Column="2" Text="Current effect: "/>
+            <TextBlock Grid.Column="3" x:Name="currentEffectText"/>
         </Grid>
     </Grid>
 </Window>

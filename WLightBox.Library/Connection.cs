@@ -2,51 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WLightBox.Library
+namespace WLightBox.Libraryold
 {
-   
+
 
     public class Connection
     {
-        List<String> deviceIps = new List<String>();
+        List<string> deviceIps = new List<string>();
         public Device[] devices { get; set; }
 
         public Connection()
         {
             FindDevicesIps();
             devices = new Device[deviceIps.Count];
-            for(int i = 0; i < devices.Length; i++)
+            for (int i = 0; i < devices.Length; i++)
             {
                 devices[i] = new Device(deviceIps[i]);
             }
         }
 
-        
+
 
         public void FindDevicesIps()
         {
             HttpClient client = new HttpClient();
-            List<String>? subnets = GetLocalSubnetsList();
+            List<string>? subnets = GetLocalSubnetsList();
             if (subnets == null) return;
             foreach (var subnet in subnets)
             {
                 for (int i = 1; i < 255; i++)
                 {
-                    String requestString = $"http://{subnet}.{i}/info";
+                    string requestString = $"http://{subnet}.{i}/info";
                     sendRequestAsync(client, requestString);
                 }
 
             }
             return;
-            
+
         }
-        
-        private async void sendRequestAsync(HttpClient client, String requestString)
+
+        private async void sendRequestAsync(HttpClient client, string requestString)
         {
             try
             {
@@ -60,11 +61,11 @@ namespace WLightBox.Library
 
             }
         }
-        
-        private List<String>? GetLocalSubnetsList()
+
+        private List<string>? GetLocalSubnetsList()
         {
-            List<String>? result = new List<string>();
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            List<string>? result = new List<string>();
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
                 var host = Dns.GetHostEntry(Dns.GetHostName());
                 if (host != null)
@@ -74,9 +75,9 @@ namespace WLightBox.Library
                         if (x != null && x.ToString().Contains('.'))
                         {
                             var elements = x.ToString().Split('.');
-                            String subnet = elements[0] + '.' + elements[1] + '.' + elements[2];
+                            string subnet = elements[0] + '.' + elements[1] + '.' + elements[2];
                             result.Add(subnet);
-                        }  
+                        }
                     }
                 }
                 return result;

@@ -3,11 +3,12 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WLightBox.Library
+namespace WLightBox.Libraryold
 {
     public class Device
     {
@@ -15,7 +16,7 @@ namespace WLightBox.Library
         HttpClient client;
         public Device(string ip)
         {
-            this.Ip = ip;
+            Ip = ip;
             client = new HttpClient();
         }
 
@@ -33,37 +34,37 @@ namespace WLightBox.Library
             }
         }
 
-        public async Task<String> GetCurrentColorAsync()
+        public async Task<string> GetCurrentColorAsync()
         {
-            
-            String requestString = $"http://{Ip}/api/rgbw/state";
+
+            string requestString = $"http://{Ip}/api/rgbw/state";
             if (IsConnected())
             {
                 try
                 {
-                    String jsonResponse = await client.GetStringAsync(requestString);
+                    string jsonResponse = await client.GetStringAsync(requestString);
                     //response = response.Split(@"""currentColor"": """)[1].Split('"')[0];
                     var obj = JObject.Parse(jsonResponse);
                     string response = obj["rgbw"]["currentColor"].ToString();
                     return response;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    return String.Empty;
+                    return string.Empty;
                 }
             }
-            return String.Empty;
+            return string.Empty;
         }
 
-        public async Task<String> GetCurrentEffectAsync()
+        public async Task<string> GetCurrentEffectAsync()
         {
 
-            String requestString = $"http://{Ip}/api/rgbw/extended/state";
+            string requestString = $"http://{Ip}/api/rgbw/extended/state";
             if (IsConnected())
             {
                 try
                 {
-                    String jsonResponse = await client.GetStringAsync(requestString);
+                    string jsonResponse = await client.GetStringAsync(requestString);
                     //response = response.Split(@"""currentColor"": """)[1].Split('"')[0];
                     var obj = JObject.Parse(jsonResponse);
                     string effectID = obj["rgbw"]["effectID"].ToString();
@@ -72,23 +73,23 @@ namespace WLightBox.Library
                 }
                 catch (Exception ex)
                 {
-                    return String.Empty;
+                    return string.Empty;
                 }
             }
-            return String.Empty;
+            return string.Empty;
         }
 
         public async Task SetColorAsync(string color)
         {
-            String requestUrl = $"http://{Ip}/api/rgbw/set";
-            String requestJson = JsonConvert.SerializeObject(new { rgbw = new { desiredColor = color } });
+            string requestUrl = $"http://{Ip}/api/rgbw/set";
+            string requestJson = JsonConvert.SerializeObject(new { rgbw = new { desiredColor = color } });
             var content = new StringContent(requestJson.ToString(), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(requestUrl, content);
         }
         public async Task SetEffectAsync(int effectId)
         {
-            String requestUrl = $"http://{Ip}/api/rgbw/set";
-            String requestJson = JsonConvert.SerializeObject(new { rgbw = new { effectID = effectId.ToString() } });
+            string requestUrl = $"http://{Ip}/api/rgbw/set";
+            string requestJson = JsonConvert.SerializeObject(new { rgbw = new { effectID = effectId.ToString() } });
             var content = new StringContent(requestJson.ToString(), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(requestUrl, content);
         }
