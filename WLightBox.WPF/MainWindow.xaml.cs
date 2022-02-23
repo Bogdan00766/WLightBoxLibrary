@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using WLightBox.Library;
 
 namespace WLightBox.WPF
@@ -8,31 +10,23 @@ namespace WLightBox.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        int counter = 0;
+        private LightBox lb;
         public MainWindow()
-        {
-            
+        {          
             InitializeComponent();
-            //Connection conn = new Connection();
-            //foreach (Device dev in conn.devices)
-            //{
-            //    currentColorText.Text = dev.Ip;
-            //}
-                //Task.Delay(1000).Wait();
-                // currentColorText.Text = connection.devices[0].GetCurrentColorAsync().Result;
-                //currentEffectText.Text = connection.devices[0].GetCurrentEffectAsync().Result;
-            }
+            lb = new LightBox();
+        }
+        //protected override async void OnInitialized(EventArgs e)
+        //{
+            //Connection connection = await Connection.CreateAsync();
+            ////Task.Delay(2000).Wait();
+            //currentColorText.Text = await connection.devices[0].GetCurrentColorAsync();
+            //currentEffectText.Text = await connection.devices[0].GetCurrentEffectAsync();
+        //}
 
         private void testButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            currentEffectText.Text = "XDDD";
-            foreach (Device dev in Connection.devices)
-            {
-                currentEffectText.Text = dev.Ip;
-            }
-
-            currentColorText.Text = counter++.ToString();
+            lb.ResearchDevices();
         }
     }
 }
