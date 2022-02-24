@@ -3,27 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WLightBox.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="TEST" x:Name="testButton" Click="testButton_Click"/>
-            <!--<TextBlock Grid.Column="0" Text="Current color: "/>-->
-            <TextBlock Grid.Column="1" x:Name="currentColorText"/>
-            <TextBlock Grid.Column="2" Text="Current effect: "/>
-            <TextBlock Grid.Column="3" x:Name="currentEffectText"/>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Avalible devices"/>
+            <ListBox Grid.Row="1" VerticalAlignment="Stretch" x:Name="devicesListBox" Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"/>
+            <Button Grid.Row="2" Content="Refresh" x:Name="refreshButton" Click="refreshButton_Click"/>
+
+        </Grid>
+
+
+        <Grid Margin="17" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,5,0,0" Grid.Row="0" Text="Current color: "/>
+            <TextBlock Margin="0,5,0,0" Grid.Row="1" x:Name="currentColorText"/>
+            <TextBlock Margin="0,5,0,0" Grid.Row="2" Text="Current effect: "/>
+            <TextBlock Margin="0,5,0,0" Grid.Row="3" x:Name="currentEffectText"/>
+            <xctk:ColorPicker Grid.Row="4" UsingAlphaChannel="False" x:Name="colorPicker" />
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Set effect" x:Name="setEffectButton" Click="setEffectButton_Click"/>
+                <Button Grid.Column="1" Content="Set color" x:Name="setColorButton" Click="setColorButton_Click"/>
+            </Grid>
+            
+            <Grid Grid.Row="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!--<Button Content="TEST" x:Name="testButton" Click="testButton_Click"/>-->
+                
+            </Grid>
         </Grid>
     </Grid>
 </Window>
