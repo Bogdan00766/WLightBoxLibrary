@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -18,33 +17,14 @@ namespace WLightBox.WPF
 
     {
         private LightBox lb;
-        private string? currentEffect;
         private Device? currentDevice;
-        private List<string>? currentEffectsList;
         public MainWindow()
         {          
             InitializeComponent();
             devicesListBox.Items.Add("Searching...");
-            effectsListBox.Items.Add("Searching...");
             devicesListBox.SelectionChanged += changedSelection;
-            effectsListBox.SelectionChanged += elbChangedSelection;
-            cwSlider.ValueChanged += cwSliderValueChanged;
-            wwSlider.ValueChanged += wwSliderValueChanged;
 
         }
-
-        
-
-        private void cwSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            cwSliderValueText.Text = cwSlider.Value.ToString();
-        }
-
-        private void wwSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            wwSliderValueText.Text = wwSlider.Value.ToString();
-        }
-
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
@@ -53,27 +33,10 @@ namespace WLightBox.WPF
             SetList();
         }
 
-        private void elbChangedSelection(object sender, SelectionChangedEventArgs e)
-        {
-            if (effectsListBox.SelectedItem != null)
-            {
-                currentEffect = effectsListBox.SelectedItem.ToString();
-            }
-        }
-
-        private async void changedSelection(object sender, SelectionChangedEventArgs e)
+        private void changedSelection(object sender, SelectionChangedEventArgs e)
         {
             Device? dev = lb.Devices.Where(x => x.Ip == (string)devicesListBox.SelectedItem).FirstOrDefault();
-            currentDevice = dev;    
-            if(currentDevice != null)
-            {
-                effectsListBox.Items.Clear();
-                currentEffectsList = await currentDevice.GetEffectsListAsync();
-                foreach(var effect in currentEffectsList)
-                {
-                    effectsListBox.Items.Add(effect);
-                }
-            }
+            currentDevice = dev;
             updateInfo();
         }
 
@@ -83,11 +46,7 @@ namespace WLightBox.WPF
             {
                 Rgbww rgbww = await currentDevice.GetCurrentColorAsync();
                 currentColorText.Text = $"RGB WW CW: {rgbww.Red}, {rgbww.Green}, {rgbww.Blue}, {rgbww.WarmWhite}, {rgbww.ColdWhite}";
-                wwSlider.Value = rgbww.WarmWhite;
-                cwSlider.Value = rgbww.ColdWhite;
-                currentEffectText.Text = await currentDevice.GetCurrentEffectAsync();
-                
-                
+                //currentEffectText.Text = await currentDevice.GetCurrentEffectAsync();
             }
         }
 
@@ -118,24 +77,18 @@ namespace WLightBox.WPF
                 devicesListBox.IsEnabled = false;
             }
         }
-
+         
         private void setEffectButton_Click(object sender, RoutedEventArgs e)
         {
-            if (effectsListBox.SelectedItem != null && currentEffectsList != null && currentDevice != null) {
-                int? index = currentEffectsList.IndexOf(effectsListBox.SelectedItem.ToString());
-                if (index != null) {
-                    currentDevice.SetEffect((int)index);
-                    updateInfo();
-                }
-            }
+
         }
 
         private void setColorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentDevice != null && colorPicker.SelectedColor != null)
-            {                
-                currentDevice.SetColor(colorPicker.SelectedColor.Value.R, colorPicker.SelectedColor.Value.G, colorPicker.SelectedColor.Value.B,(int)wwSlider.Value, (int)cwSlider.Value);
-                Task.Delay(100).Wait();
+            if (currentDevice != null)
+            {
+                currentEffectText.Text = colorPicker.SelectedColor.Value.R.ToString() + colorPicker.SelectedColor.Value.G.ToString() + colorPicker.SelectedColor.Value.B.ToString();
+                currentDevice.SetColor(colorPicker.SelectedColor.Value.R, colorPicker.SelectedColor.Value.G, colorPicker.SelectedColor.Value.B, 1, 1);
                 updateInfo();
             }
         }
