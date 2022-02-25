@@ -19,11 +19,16 @@ Console.WriteLine("Hello, World!");
 
 WLightBox.Library.LightBox wlb = new WLightBox.Library.LightBox();
 await wlb.SetupConnection();
-foreach (var device in wlb.Devices)
+var x = await wlb.Devices[0].GetEffectsListAsync();
+foreach (var effect in x)
 {
-    Console.WriteLine(device.Ip);
-    await device.SetColor(111,112,113,114,115);
-    var color = await device.GetCurrentColorAsync();
-    Console.WriteLine($"{color.Red} {color.Green} {color.Blue} {color.WarmWhite} {color.ColdWhite}");
+    Console.WriteLine(effect);
 }
+//foreach (var device in wlb.Devices)
+//{
+//    Console.WriteLine(device.Ip);
+//    await device.SetColor(111,112,113,114,115);
+//    var color = await device.GetCurrentColorAsync();
+//    Console.WriteLine($"{color.Red} {color.Green} {color.Blue} {color.WarmWhite} {color.ColdWhite}");
+//}
 while (true) ;
