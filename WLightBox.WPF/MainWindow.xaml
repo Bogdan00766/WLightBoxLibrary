@@ -32,23 +32,46 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Margin="0,5,0,0" Grid.Row="0" Text="Current color: "/>
             <TextBlock Margin="0,5,0,0" Grid.Row="1" x:Name="currentColorText"/>
             <TextBlock Margin="0,5,0,0" Grid.Row="2" Text="Current effect: "/>
             <TextBlock Margin="0,5,0,0" Grid.Row="3" x:Name="currentEffectText"/>
-            <xctk:ColorPicker Grid.Row="4" UsingAlphaChannel="False" x:Name="colorPicker" />
+            <xctk:ColorPicker Width="70" Height="30" Margin="0,5,0,5" HorizontalAlignment="Left" Grid.Row="4" UsingAlphaChannel="False" x:Name="colorPicker"  />
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Set effect" x:Name="setEffectButton" Click="setEffectButton_Click"/>
-                <Button Grid.Column="1" Content="Set color" x:Name="setColorButton" Click="setColorButton_Click"/>
+                <Button VerticalAlignment="Bottom" Grid.Column="0" Content="Set effect" x:Name="setEffectButton" Click="setEffectButton_Click"/>
+                <Button VerticalAlignment="Bottom" Grid.Column="1" Content="Set color" x:Name="setColorButton" Click="setColorButton_Click"/>
+                <ListBox x:Name="effectsListBox" Margin="0,0,0,30"/>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center">Cold White</TextBlock>
+                    <Slider x:Name="cwSlider" Orientation="Vertical" Grid.Row="1" Value="1" Minimum="0" Maximum="255" HorizontalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    <TextBlock x:Name="cwSliderValueText" Grid.Row="2" HorizontalAlignment="Center" Text="1"></TextBlock>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center">Warm White</TextBlock>
+                    <Slider x:Name="wwSlider" Orientation="Vertical" Grid.Row="1" Value="1" Minimum="0" Maximum="255" HorizontalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    <TextBlock x:Name="wwSliderValueText" Grid.Row="2" HorizontalAlignment="Center" Text="1"></TextBlock>
+                </Grid>
             </Grid>
-            
+
             <Grid Grid.Row="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -56,9 +79,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!--<Button Content="TEST" x:Name="testButton" Click="testButton_Click"/>-->
-                
+
             </Grid>
         </Grid>
     </Grid>
