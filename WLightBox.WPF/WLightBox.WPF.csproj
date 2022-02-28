@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\WLightBoxx\WLightBox.Library\WLightBox.Library.csproj" />
+    <ProjectReference Include="..\WLightBox.Library\WLightBox.Library.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,63 +6,34 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace WLightBox.Libraryold
+namespace WLightBox.Library
 {
 
 
     public class Connection
     {
-        List<string> deviceIps = new List<string>();
+        //List<String> deviceIps = new List<String>();
+        public List<String> deviceIps { get; set; }
         public Device[] devices { get; set; }
-
-        public Connection()
+        
+        public void FindDevicesAddresses()
         {
-            FindDevicesIps();
-            devices = new Device[deviceIps.Count];
-            for (int i = 0; i < devices.Length; i++)
-            {
-                devices[i] = new Device(deviceIps[i]);
-            }
-        }
-
-
-
-        public void FindDevicesIps()
-        {
-            HttpClient client = new HttpClient();
-            List<string>? subnets = GetLocalSubnetsList();
-            if (subnets == null) return;
+            deviceIps = new List<string>();
+            List<string> subnets = GetLocalSubnetsList();
             foreach (var subnet in subnets)
             {
-                for (int i = 1; i < 255; i++)
+                for (int i = 2; i <= 255; i++)
                 {
-                    string requestString = $"http://{subnet}.{i}/info";
-                    sendRequestAsync(client, requestString);
+                    string address = subnet + '.' + i;
+                    SendRequest(address, 1);
                 }
-
-            }
-            return;
-
-        }
-
-        private async void sendRequestAsync(HttpClient client, string requestString)
-        {
-            try
-            {
-                await client.GetStringAsync(requestString);
-                requestString = requestString.Split("//")[1];
-                requestString = requestString.Split('/')[0];
-                deviceIps.Add(requestString);
-            }
-            catch (Exception ex)
-            {
-
             }
         }
 
-        private List<string>? GetLocalSubnetsList()
+        private List<string> GetLocalSubnetsList()
         {
             List<string>? result = new List<string>();
             if (NetworkInterface.GetIsNetworkAvailable())
@@ -84,9 +55,45 @@ namespace WLightBox.Libraryold
             }
             else
             {
-                Console.WriteLine("Not connected");
-                return null;
+                throw new Exception("Not connected to network");
+            }
+        }
+
+        
+
+        public void SendRequest(string address, int attempts)
+        {
+            for (int i = 0; i < attempts; i++)
+            {
+                string requestString = $"http://{address}/info";
+                new Thread(async delegate ()
+                {
+                    try
+                    {
+                        HttpClient client = new HttpClient();
+                        await client.GetStringAsync(requestString);
+                        requestString = requestString.Split("//")[1];
+                        requestString = requestString.Split('/')[0];
+                        deviceIps.Add(requestString);
+                    }
+                    catch
+                    {
+                    }
+                }).Start();
+            }
+        }
+
+        private void PingCompleted(object sender, PingCompletedEventArgs e)
+        {
+            string ip = (string)e.UserState;
+            //Console.WriteLine(ip);
+
+            if(e.Reply != null && e.Reply.Status == IPStatus.Success)
+            {
+                Console.WriteLine(ip);
             }
         }
     }
+
+    
 }
